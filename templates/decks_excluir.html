@@ -1,0 +1,32 @@
+{% extends "_base.html" %}
+
+{% block conteudo %}
+
+<h2>Excluir Deck</h2>
+
+<p>Tem certeza que deseja excluir o deck <strong>{{ deck.comandante }}</strong>?</p>
+
+<table>
+    <tr>
+        <th>Comandante</th>
+        <th>Link</th>
+        <th>Standings</th>
+        <th>Posição</th>
+        <th>Arquétipo</th>
+    </tr>
+    <tr>
+        <td>{{ deck.comandante }}</td>
+        <td>{{ deck.link }}</td>
+        <td>{{ deck.standings }}</td>
+        <td>{{ deck.posicao }}</td>
+        <td>{{ deck.arquetipo }}</td>
+    </tr>
+</table>
+
+<form action="decks_excluir.php" method="post">
+    <input type="hidden" name="id" value="{{ deck.id }}">
+    <button type="submit">Confirmar exclusão</button>
+    <a href="decks.php">Cancelar</a>
+</form>
+
+{% endblock %}
