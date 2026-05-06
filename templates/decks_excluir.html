@@ -4,29 +4,29 @@
 
 <h2>Excluir Deck</h2>
 
-<p>Tem certeza que deseja excluir o deck <strong>{{ deck.comandante }}</strong>?</p>
+<p>Tem certeza que deseja excluir o deck {{ deck.comandante }}?</p>
 
-<table>
+<table class="border-collapse border border-gray-400">
     <tr>
-        <th>Comandante</th>
-        <th>Link</th>
-        <th>Standings</th>
-        <th>Posição</th>
-        <th>Arquétipo</th>
+        <th class="border border-gray-400">Comandante</th>
+        <th class="border border-gray-400">Link</th>
+        <th class="border border-gray-400">Standings</th>
+        <th class="border border-gray-400">Posição</th>
+        <th class="border border-gray-400">Arquétipo</th>
     </tr>
     <tr>
-        <td>{{ deck.comandante }}</td>
-        <td>{{ deck.link }}</td>
-        <td>{{ deck.standings }}</td>
-        <td>{{ deck.posicao }}</td>
-        <td>{{ deck.arquetipo }}</td>
+        <td class="border border-gray-400">{{ deck.comandante }}</td>
+        <td class="border border-gray-400"><a href="{{ deck.link }}" class="text-blue-400">Clique aqui</a></td>
+        <td class="border border-gray-400">{{ deck.standings }}</td>
+        <td class="border border-gray-400">{{ deck.posicao }}</td>
+        <td class="border border-gray-400">{{ deck.arquetipo }}</td>
     </tr>
 </table>
 
 <form action="decks_excluir.php" method="post">
     <input type="hidden" name="id" value="{{ deck.id }}">
-    <button type="submit">Confirmar exclusão</button>
-    <a href="decks.php">Cancelar</a>
+    <button type="submit" class="bg-red-400">Confirmar exclusão</button>
+    <a href="decks.php" class="bg-blue-400">Cancelar</a>
 </form>
 
 {% endblock %}

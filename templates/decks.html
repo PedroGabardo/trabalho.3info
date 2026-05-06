@@ -1,32 +1,32 @@
 {% extends "_base.html" %}
 
 {% block conteudo %}
+<div class="px-3">
+    <h2>LISTAS DE DUEL COMMANDER</h2>
 
-<h2>LISTAS DE DUEL COMMANDER</h2>
+    <a href="decks_inserir.php" class="bg-violet-500 border-gray-400">Inserir novo deck</a>
 
-<a href="decks_inserir.php">Inserir novo deck</a>
-
-<table>
-    <tr>
-        <th>Deck</th>
-        <th>Lista</th>
-        <th>Standings finais</th>
-        <th>Posição</th>
-        <th>Arquétipo</th>
-        <th>Editar</th>
-        <th>Excluir</th>
-    </tr>
-    {% for deck in decks %}
-    <tr>
-        <td>{{ deck.comandante }}</td>
-        <td>{{ deck.link }}</td>
-        <td>{{ deck.standings }}</td>
-        <td>{{ deck.posicao }}</td>
-        <td>{{ deck.arquetipo }}</td>
-        <td><a href="decks_editar.php?id={{ deck.id }}">Editar</a></td>
-        <td><a href="decks_excluir.php?id={{ deck.id }}">Excluir</a></td>
-    </tr>
-    {% endfor %}
-</table>
-
+    <table class="border-collapse border border-gray-400">
+        <tr>
+            <th class="border border-gray-400">Deck</th>
+            <th class="border border-gray-400">Lista</th>
+            <th class="border border-gray-400">Standings finais</th>
+            <th class="border border-gray-400">Posição</th>
+            <th class="border border-gray-400">Arquétipo</th>
+            <th class="border border-gray-400">Editar</th>
+            <th class="border border-gray-400">Excluir</th>
+        </tr>
+        {% for deck in decks %}
+        <tr>
+            <td class="border border-gray-400">{{ deck.comandante }}</td>
+            <td class="border border-gray-400"><a href="{{ deck.link }}" class="text-blue-400">Clique aqui</a></td>
+            <td class="border border-gray-400">{{ deck.standings }}</td>
+            <td class="border border-gray-400">{{ deck.posicao }}</td>
+            <td class="border border-gray-400">{{ deck.arquetipo }}</td>
+            <td class="border border-gray-400"><a href="decks_editar.php?id={{ deck.id }}" class="text-yellow-400">Editar</a></td>
+            <td class="border border-gray-400"><a href="decks_excluir.php?id={{ deck.id }}" class="text-red-400">Excluir</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 {% endblock %}
