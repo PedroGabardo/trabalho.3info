@@ -10,7 +10,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $arquetipo  = $_POST['arquetipo'] ?? false;
 
     if (!$comandante || !$link || !$standings || !$posicao || !$arquetipo) {
-        $erro = 'Preencha corretamente!';
+        $erro = 'Dados inválidos ou em branco!';
     } else {
         require('carregar_pdo.php');
         $dados = $pdo->prepare('INSERT INTO decks (comandante, link, standings, posicao, arquetipo) VALUES (?, ?, ?, ?, ?)');

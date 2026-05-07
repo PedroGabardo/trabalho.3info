@@ -1,32 +1,58 @@
 {% extends "_base.html" %}
 
 {% block conteudo %}
-<div class="px-3">
-    <h2>LISTAS DE DUEL COMMANDER</h2>
+<div class="px-3 py-4">
+    <h2 class="text-2xl font-bold mb-4">LISTAS DE DUEL COMMANDER</h2>
 
-    <a href="decks_inserir.php" class="bg-violet-500 border-gray-400">Inserir novo deck</a>
+    <a href="decks_inserir.php" class="bg-violet-500 px-3 py-1 rounded mb-4">Inserir novo deck</a>
 
-    <table class="border-collapse border border-gray-400">
-        <tr>
-            <th class="border border-gray-400">Deck</th>
-            <th class="border border-gray-400">Lista</th>
-            <th class="border border-gray-400">Standings finais</th>
-            <th class="border border-gray-400">Posição</th>
-            <th class="border border-gray-400">Arquétipo</th>
-            <th class="border border-gray-400">Editar</th>
-            <th class="border border-gray-400">Excluir</th>
-        </tr>
-        {% for deck in decks %}
-        <tr>
-            <td class="border border-gray-400">{{ deck.comandante }}</td>
-            <td class="border border-gray-400"><a href="{{ deck.link }}" class="text-blue-400">Clique aqui</a></td>
-            <td class="border border-gray-400">{{ deck.standings }}</td>
-            <td class="border border-gray-400">{{ deck.posicao }}</td>
-            <td class="border border-gray-400">{{ deck.arquetipo }}</td>
-            <td class="border border-gray-400"><a href="decks_editar.php?id={{ deck.id }}" class="text-yellow-400">Editar</a></td>
-            <td class="border border-gray-400"><a href="decks_excluir.php?id={{ deck.id }}" class="text-red-400">Excluir</a></td>
-        </tr>
-        {% endfor %}
+    <!-- Filtros -->
+    <div class="flex flex-wrap my-4">
+        <input type="text" id="filtro-comandante" placeholder="Buscar por comandante" class="border border-gray-400 bg-gray-900 text-white px-2">
+        <input type="text" id="filtro-standings" placeholder="Buscar por standings..." class="border border-gray-400 bg-gray-900 text-white px-2">
+        <input type="number" id="filtro-posicao" placeholder="Posição..." class="border border-gray-400 bg-gray-900 text-white px-2 w-28">
+        <select id="filtro-arquetipo" class="border border-gray-400 bg-gray-900 text-white px-2">
+            <option value="">Todos os arquétipos</option>
+            <option value="midrange">Midrange</option>
+            <option value="aggro">Aggro</option>
+            <option value="controle">Controle</option>
+            <option value="combo">Combo</option>
+        </select>
+
+        <button id="limpar-filtros" class="bg-gray-700 hover:bg-gray-600 px-3 text-sm ml-2">Limpar filtros</button>
+    </div>  
+
+    <p id="contador" class="text-gray-400 text-sm mb-2"></p>
+
+    <table class="border-collapse border border-gray-400 w-full">
+        <thead>
+            <tr>
+                <th class="border border-gray-400 px-2 py-1">Deck</th>
+                <th class="border border-gray-400 px-2 py-1">Lista</th>
+                <th class="border border-gray-400 px-2 py-1">Standings finais</th>
+                <th class="border border-gray-400 px-2 py-1">Posição</th>
+                <th class="border border-gray-400 px-2 py-1">Arquétipo</th>
+                <th class="border border-gray-400 px-2 py-1">Editar</th>
+                <th class="border border-gray-400 px-2 py-1">Excluir</th>
+            </tr>
+        </thead>
+        <tbody id="tabela-body">
+            {% for deck in decks %}
+            <tr data-comandante="{{ deck.comandante | lower }}" data-standings="{{ deck.standings | lower }}" data-posicao="{{ deck.posicao }}" data-arquetipo="{{ deck.arquetipo | lower }}">
+                <td class="border border-gray-400 px-2 py-1">{{ deck.comandante }}</td>
+                <td class="border border-gray-400 px-2 py-1"><a href="{{ deck.link }}" class="text-blue-400">Clique aqui</a></td>
+                <td class="border border-gray-400 px-2 py-1">{{ deck.standings }}</td>
+                <td class="border border-gray-400 px-2 py-1">{{ deck.posicao }}</td>
+                <td class="border border-gray-400 px-2 py-1">{{ deck.arquetipo }}</td>
+                <td class="border border-gray-400 px-2 py-1"><a href="decks_editar.php?id={{ deck.id }}" class="text-yellow-400">Editar</a></td>
+                <td class="border border-gray-400 px-2 py-1"><a href="decks_excluir.php?id={{ deck.id }}" class="text-red-400">Excluir</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
+
+    <p id="sem-resultados" class="text-gray-400 mt-3 hidden">Nenhum deck encontrado com os filtros aplicados.</p>
 </div>
+
+<script src="decks.js"></script>
 {% endblock %}

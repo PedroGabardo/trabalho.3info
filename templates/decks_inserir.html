@@ -1,35 +1,39 @@
 {% extends "_base.html" %}
 
 {% block conteudo %}
-<h1>jogos_inserir dos guri</h1>
 
-{% if erro %}
-<p>{{ erro }}</p>
-{% endif %}
 
-<form action="decks_inserir.php" method="post" enctype="multipart/form-data">
-    <label for="comandante">Comandante:</label>
-    <input type="text" name="nome" id="comandante" placeholder="Insira o Comandante">
-    <br>
-    <label for="link">Link da lista:</label>
-    <input type="url" name="link" id="link" placeholder="Insira a URL">
-    <br>
-    <label for="standings">Standings:</label>
-    <input type="text" name="standings" id="standings" placeholder="?/?/?">
-    <br>
-    <label for="posicao">Posição:</label>
-    <input type="number" name="posicao" id="posicao" placeholder="Insira o número">
-    <br>
-    <label for="arquetipo">Arquétipo:</label>
-    <select name="arquetipo" id="arquetipo">
-        <option value="midrange" class="bg-slate-800">Midrange</option>
-        <option value="aggro" class="bg-slate-800">Aggro</option>
-        <option value="controle" class="bg-slate-800">Controle</option>
-        <option value="combo" class="bg-slate-800">Combo</option>
-    </select>
-    <br>
-    <input type="submit" value="gravar">
 
-</form>
+<div class="p-3">
+    <h1 class="text-2xl pb-2 font-bold">Insira o novo deck</h1>
+
+    <form action="decks_inserir.php" method="post" enctype="multipart/form-data">
+        <label for="comandante">Comandante:</label>
+        <input type="text" name="nome" id="comandante" placeholder="Insira o Comandante" class="border border-gray-400">
+        <br>
+        <label for="link">Link da lista:</label>
+        <input type="url" name="link" id="link" placeholder="Insira a URL" class="border border-gray-400">
+        <br>
+        <label for="standings">Standings:</label>
+        <input type="text" name="standings" id="standings" placeholder="?/?/?" class="border border-gray-400">
+        <br>
+        <label for="posicao">Posição:</label>
+        <input type="number" name="posicao" id="posicao" placeholder="Insira o número" class="border border-gray-400">
+        <br>
+        <label for="arquetipo">Arquétipo:</label>
+        <select name="arquetipo" id="arquetipo" class="border border-gray-400">
+            <option value="midrange" class="bg-slate-800">Midrange</option>
+            <option value="aggro" class="bg-slate-800">Aggro</option>
+            <option value="controle" class="bg-slate-800">Controle</option>
+            <option value="combo" class="bg-slate-800">Combo</option>
+        </select>
+        <br>
+        <input type="submit" value="gravar" class="bg-green-500 px-1 rounded">
+        <a href="decks.php" class="bg-blue-500 px-1 rounded">Voltar</a>
+    </form>
+    {% if erro %}
+    <p class="font-bold text-xl bg-red-600 rounded px-1">{{ erro }}</p>
+    {% endif %}
+</div>
 
 {% endblock %}

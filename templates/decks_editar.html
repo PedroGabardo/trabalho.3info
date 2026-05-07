@@ -1,0 +1,39 @@
+{% extends "_base.html" %}
+
+{% block conteudo %}
+
+{% if erro %}
+<p class="text-red-400 p-3">{{ erro }}</p>
+{% endif %}
+
+<div class="p-3">
+    <h1 class="text-xl pb-2">Editar deck</h1>
+    <form action="decks_editar.php" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="{{ deck.id }}">
+
+        <label for="comandante">Comandante:</label>
+        <input type="text" name="nome" id="comandante" placeholder="Insira o Comandante" value="{{ deck.comandante }}" class="border border-gray-400">
+        <br>
+        <label for="link">Link da lista:</label>
+        <input type="url" name="link" id="link" placeholder="Insira a URL" value="{{ deck.link }}" class="border border-gray-400">
+        <br>
+        <label for="standings">Standings:</label>
+        <input type="text" name="standings" id="standings" placeholder="?/?/?" value="{{ deck.standings }}" class="border border-gray-400">
+        <br>
+        <label for="posicao">Posição:</label>
+        <input type="number" name="posicao" id="posicao" placeholder="Insira o número" value="{{ deck.posicao }}" class="border border-gray-400">
+        <br>
+        <label for="arquetipo">Arquétipo:</label>
+        <select name="arquetipo" id="arquetipo" class="border border-gray-400">
+            <option value="midrange" class="bg-slate-800" {% if deck.arquetipo == 'midrange' %}selected{% endif %}>Midrange</option>
+            <option value="aggro" class="bg-slate-800" {% if deck.arquetipo == 'aggro' %}selected{% endif %}>Aggro</option>
+            <option value="controle" class="bg-slate-800" {% if deck.arquetipo == 'controle' %}selected{% endif %}>Controle</option>
+            <option value="combo" class="bg-slate-800" {% if deck.arquetipo == 'combo' %}selected{% endif %}>Combo</option>
+        </select>
+        <br>
+        <input type="submit" value="salvar" class="bg-green-500 px-2 rounded">
+        <a href="decks.php" class="bg-blue-500 px-2 rounded">Voltar</a>
+    </form>
+</div>
+
+{% endblock %}

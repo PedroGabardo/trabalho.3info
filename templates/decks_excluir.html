@@ -2,31 +2,37 @@
 
 {% block conteudo %}
 
-<h2>Excluir Deck</h2>
+<div class="p-3">
+    <h1 class="text-xl pb-2">Excluir deck</h1>
 
-<p>Tem certeza que deseja excluir o deck {{ deck.comandante }}?</p>
+    <p class="mb-4">Tem certeza que deseja excluir o deck <strong>{{ deck.comandante }}</strong>?</p>
 
-<table class="border-collapse border border-gray-400">
-    <tr>
-        <th class="border border-gray-400">Comandante</th>
-        <th class="border border-gray-400">Link</th>
-        <th class="border border-gray-400">Standings</th>
-        <th class="border border-gray-400">Posição</th>
-        <th class="border border-gray-400">Arquétipo</th>
-    </tr>
-    <tr>
-        <td class="border border-gray-400">{{ deck.comandante }}</td>
-        <td class="border border-gray-400"><a href="{{ deck.link }}" class="text-blue-400">Clique aqui</a></td>
-        <td class="border border-gray-400">{{ deck.standings }}</td>
-        <td class="border border-gray-400">{{ deck.posicao }}</td>
-        <td class="border border-gray-400">{{ deck.arquetipo }}</td>
-    </tr>
-</table>
+    <form action="decks_excluir.php" method="post">
+        <input type="hidden" name="id" value="{{ deck.id }}">
 
-<form action="decks_excluir.php" method="post">
-    <input type="hidden" name="id" value="{{ deck.id }}">
-    <button type="submit" class="bg-red-400">Confirmar exclusão</button>
-    <a href="decks.php" class="bg-blue-400">Cancelar</a>
-</form>
+        <label for="comandante">Comandante:</label>
+        <input type="text" id="comandante" value="{{ deck.comandante }}" class="border border-gray-400" disabled>
+        <br>
+        <label for="link">Link da lista:</label>
+        <input type="url" id="link" value="{{ deck.link }}" class="border border-gray-400" disabled>
+        <br>
+        <label for="standings">Standings:</label>
+        <input type="text" id="standings" value="{{ deck.standings }}" class="border border-gray-400" disabled>
+        <br>
+        <label for="posicao">Posição:</label>
+        <input type="number" id="posicao" value="{{ deck.posicao }}" class="border border-gray-400" disabled>
+        <br>
+        <label for="arquetipo">Arquétipo:</label>
+        <select id="arquetipo" class="border border-gray-400" disabled>
+            <option value="midrange" class="bg-slate-800" {% if deck.arquetipo == 'midrange' %}selected{% endif %}>Midrange</option>
+            <option value="aggro" class="bg-slate-800" {% if deck.arquetipo == 'aggro' %}selected{% endif %}>Aggro</option>
+            <option value="controle" class="bg-slate-800" {% if deck.arquetipo == 'controle' %}selected{% endif %}>Controle</option>
+            <option value="combo" class="bg-slate-800" {% if deck.arquetipo == 'combo' %}selected{% endif %}>Combo</option>
+        </select>
+        <br>
+        <button type="submit" class="bg-red-500 px-2 rounded">Confirmar exclusão</button>
+        <a href="decks.php" class="bg-blue-500 px-2 rounded">Cancelar</a>
+    </form>
+</div>
 
 {% endblock %}
