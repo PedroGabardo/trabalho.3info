@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $dados->execute();
 
-        header('location:decks.php');
+        header('location:index.php');
         die;
     }
 }
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 $id = (INT) $_GET['id'] ?? false;
 
 if (!$id) {
-    header('location:decks.php');
+    header('location:index.php');
     die;
 }
 
@@ -44,7 +44,7 @@ $dados = $pdo->prepare('SELECT * FROM decks WHERE id = :id');
 $dados->execute([':id' => $id]);
 
 if ($dados->rowCount() != 1) {
-    header('location:decks.php');
+    header('location:index.php');
     die;
 }
 

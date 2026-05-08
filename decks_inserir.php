@@ -23,7 +23,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $dados->execute();
 
-        header('location:decks.php');
+        header('location:index.php');
         die;
     }
 }

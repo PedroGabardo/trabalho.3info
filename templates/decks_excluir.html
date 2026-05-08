@@ -2,37 +2,62 @@
 
 {% block conteudo %}
 
-<div class="p-3">
-    <h1 class="text-xl pb-2">Excluir deck</h1>
+<div class="flex flex-col min-h-screen">
 
-    <p class="mb-4">Tem certeza que deseja excluir o deck <strong>{{ deck.comandante }}</strong>?</p>
+  <header class="site-header">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center gap-3">
+      <span style="color: var(--purple-light); font-size: 1.2rem;">⚔</span>
+      <div>
+        <h1 style="font-size: 1rem; font-weight: 700; color: var(--purple-light); line-height: 1; margin: 0;">Duel Commander</h1>
+        <p style="font-size: 0.7rem; color: var(--muted); margin: 0; text-transform: uppercase; letter-spacing: 0.08em;">Registro de Listas Competitivas</p>
+      </div>
+    </div>
+  </header>
 
-    <form action="decks_excluir.php" method="post">
+  <div class="mx-auto w-full px-4 py-8" style="max-width: 520px;">
+
+    <div style="margin-bottom: 20px;">
+      <a href="index.php" style="color: var(--muted); font-size: 0.8rem; text-decoration: none;">← Voltar</a>
+    </div>
+
+    <div class="panel" style="padding: 28px; border-color: #7f1d1d;">
+
+      <h2 style="font-size: 1rem; font-weight: 700; color: #f87171; margin: 0 0 4px;">Excluir Deck</h2>
+      <p style="font-size: 0.85rem; color: var(--muted); margin: 0 0 20px;">
+        Tem certeza que deseja excluir <strong style="color: var(--text);">{{ deck.comandante }}</strong>? Esta ação é irreversível.
+      </p>
+      <hr class="divider" style="margin-bottom: 20px; background: #7f1d1d;">
+
+      <!-- Preview -->
+      <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 14px; margin-bottom: 24px; display: grid; gap: 8px;">
+        <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid var(--border);">
+          <span style="font-size: 0.75rem; color: var(--muted);">Comandante</span>
+          <span style="font-weight: 500; color: var(--purple-light);">{{ deck.comandante }}</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid var(--border);">
+          <span style="font-size: 0.75rem; color: var(--muted);">Standings</span>
+          <span>{{ deck.standings }}</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid var(--border);">
+          <span style="font-size: 0.75rem; color: var(--muted);">Posição</span>
+          <span style="color: var(--purple-light);">#{{ deck.posicao }}</span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="font-size: 0.75rem; color: var(--muted);">Arquétipo</span>
+          <span class="badge badge-{{ deck.arquetipo | lower }}">{{ deck.arquetipo }}</span>
+        </div>
+      </div>
+
+      <form action="decks_excluir.php" method="post">
         <input type="hidden" name="id" value="{{ deck.id }}">
+        <div style="display: flex; gap: 8px; justify-content: flex-end;">
+          <a href="index.php" class="btn btn-ghost" style="text-decoration: none;">Cancelar</a>
+          <button type="submit" class="btn btn-danger">Confirmar Exclusão</button>
+        </div>
+      </form>
 
-        <label for="comandante">Comandante:</label>
-        <input type="text" id="comandante" value="{{ deck.comandante }}" class="border border-gray-400" disabled>
-        <br>
-        <label for="link">Link da lista:</label>
-        <input type="url" id="link" value="{{ deck.link }}" class="border border-gray-400" disabled>
-        <br>
-        <label for="standings">Standings:</label>
-        <input type="text" id="standings" value="{{ deck.standings }}" class="border border-gray-400" disabled>
-        <br>
-        <label for="posicao">Posição:</label>
-        <input type="number" id="posicao" value="{{ deck.posicao }}" class="border border-gray-400" disabled>
-        <br>
-        <label for="arquetipo">Arquétipo:</label>
-        <select id="arquetipo" class="border border-gray-400" disabled>
-            <option value="midrange" class="bg-slate-800" {% if deck.arquetipo == 'midrange' %}selected{% endif %}>Midrange</option>
-            <option value="aggro" class="bg-slate-800" {% if deck.arquetipo == 'aggro' %}selected{% endif %}>Aggro</option>
-            <option value="controle" class="bg-slate-800" {% if deck.arquetipo == 'controle' %}selected{% endif %}>Controle</option>
-            <option value="combo" class="bg-slate-800" {% if deck.arquetipo == 'combo' %}selected{% endif %}>Combo</option>
-        </select>
-        <br>
-        <button type="submit" class="bg-red-500 px-2 rounded">Confirmar exclusão</button>
-        <a href="index.php" class="bg-blue-500 px-2 rounded">Cancelar</a>
-    </form>
+    </div>
+  </div>
 </div>
 
 {% endblock %}

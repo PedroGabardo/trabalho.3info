@@ -2,38 +2,79 @@
 
 {% block conteudo %}
 
+<div class="flex flex-col min-h-screen">
 
+  <header class="site-header">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center gap-3">
+      <span style="color: var(--purple-light); font-size: 1.2rem;">⚔</span>
+      <div>
+        <h1 style="font-size: 1rem; font-weight: 700; color: var(--purple-light); line-height: 1; margin: 0;">Duel Commander</h1>
+        <p style="font-size: 0.7rem; color: var(--muted); margin: 0; text-transform: uppercase; letter-spacing: 0.08em;">Registro de Listas Competitivas</p>
+      </div>
+    </div>
+  </header>
 
-<div class="p-3">
-    <h1 class="text-2xl pb-2 font-bold">Insira o novo deck</h1>
+  <div class="mx-auto w-full px-4 py-8" style="max-width: 520px;">
 
-    <form action="decks_inserir.php" method="post" enctype="multipart/form-data">
-        <label for="comandante">Comandante:</label>
-        <input type="text" name="nome" id="comandante" placeholder="Insira o Comandante" class="border border-gray-400">
-        <br>
-        <label for="link">Link da lista:</label>
-        <input type="url" name="link" id="link" placeholder="Insira a URL" class="border border-gray-400">
-        <br>
-        <label for="standings">Standings:</label>
-        <input type="text" name="standings" id="standings" placeholder="?/?/?" class="border border-gray-400">
-        <br>
-        <label for="posicao">Posição:</label>
-        <input type="number" name="posicao" id="posicao" placeholder="Insira o número" class="border border-gray-400">
-        <br>
-        <label for="arquetipo">Arquétipo:</label>
-        <select name="arquetipo" id="arquetipo" class="border border-gray-400">
-            <option value="midrange" class="bg-slate-800">Midrange</option>
-            <option value="aggro" class="bg-slate-800">Aggro</option>
-            <option value="controle" class="bg-slate-800">Controle</option>
-            <option value="combo" class="bg-slate-800">Combo</option>
-        </select>
-        <br>
-        <input type="submit" value="gravar" class="bg-green-500 px-1 rounded">
-        <a href="index.php" class="bg-blue-500 px-1 rounded">Voltar</a>
-    </form>
-    {% if erro %}
-    <p class="font-bold text-xl bg-red-600 rounded px-1">{{ erro }}</p>
-    {% endif %}
+    <div style="margin-bottom: 20px;">
+      <a href="index.php" style="color: var(--muted); font-size: 0.8rem; text-decoration: none;">← Voltar</a>
+    </div>
+
+    <div class="panel" style="padding: 28px;">
+
+      <h2 style="font-size: 1rem; font-weight: 700; color: var(--text); margin: 0 0 4px;">Novo Deck</h2>
+      <p style="font-size: 0.8rem; color: var(--muted); margin: 0 0 20px;">Adicione uma nova lista ao registro.</p>
+      <hr class="divider" style="margin-bottom: 20px;">
+
+      {% if erro %}
+      <div style="background: rgba(155,35,53,0.12); border: 1px solid #7f1d1d; border-radius: 4px; padding: 10px 14px; margin-bottom: 16px; color: #f87171; font-size: 0.85rem;">
+        ⚠ {{ erro }}
+      </div>
+      {% endif %}
+
+      <form action="decks_inserir.php" method="post" enctype="multipart/form-data">
+
+        <div class="form-group">
+          <label class="form-label" for="comandante">Comandante</label>
+          <input type="text" name="nome" id="comandante" placeholder="Nome do comandante">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="link">Link da Lista</label>
+          <input type="url" name="link" id="link" placeholder="https://...">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+          <div>
+            <label class="form-label" for="standings">Standings</label>
+            <input type="text" name="standings" id="standings" placeholder="V/E/D">
+          </div>
+          <div>
+            <label class="form-label" for="posicao">Posição</label>
+            <input type="number" name="posicao" id="posicao" placeholder="ex: 1">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="arquetipo">Arquétipo</label>
+          <select name="arquetipo" id="arquetipo">
+            <option value="midrange">Midrange</option>
+            <option value="aggro">Aggro</option>
+            <option value="controle">Controle</option>
+            <option value="combo">Combo</option>
+          </select>
+        </div>
+
+        <hr class="divider" style="margin: 20px 0;">
+
+        <div style="display: flex; gap: 8px; justify-content: flex-end;">
+          <a href="index.php" class="btn btn-ghost" style="text-decoration: none;">Cancelar</a>
+          <input type="submit" value="Registrar" class="btn btn-primary" style="cursor: pointer;">
+        </div>
+
+      </form>
+    </div>
+  </div>
 </div>
 
 {% endblock %}

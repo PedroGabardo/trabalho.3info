@@ -1,57 +1,111 @@
 {% extends "_base.html" %}
 
 {% block conteudo %}
-<div class="px-3 py-4">
-    <h2 class="text-2xl font-bold mb-4">LISTAS DE DUEL COMMANDER</h2>
 
-    <a href="decks_inserir.php" class="bg-violet-500 px-3 py-1 rounded mb-4">Inserir novo deck</a>
+<div class="flex flex-col min-h-screen">
 
-    <!-- Filtros -->
-    <div class="flex flex-wrap my-4">
-        <input type="text" id="filtro-comandante" placeholder="Comandante" class="border border-gray-400 bg-gray-900 text-white px-2">
-        <input type="text" id="filtro-standings" placeholder="Standings" class="border border-gray-400 bg-gray-900 text-white px-2">
-        <input type="number" id="filtro-posicao" placeholder="Posição" class="border border-gray-400 bg-gray-900 text-white px-2 w-28">
-        <select id="filtro-arquetipo" class="border border-gray-400 bg-gray-900 text-white px-2">
-            <option value="">Todos os arquétipos</option>
+  <header class="site-header">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center gap-3">
+      <span style="color: var(--purple-light); font-size: 1.2rem;">⚔</span>
+      <div>
+        <h1 style="font-size: 1rem; font-weight: 700; color: var(--purple-light); line-height: 1; margin: 0;">Duel Commander</h1>
+        <p style="font-size: 0.7rem; color: var(--muted); margin: 0; text-transform: uppercase; letter-spacing: 0.08em;">Registro de Listas Competitivas</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex flex-1 max-w-7xl mx-auto w-full px-4 py-6 gap-5">
+
+    <aside style="width: 210px; min-width: 210px; flex-shrink: 0; display: flex; flex-direction: column; gap: 14px;">
+
+      <a href="decks_inserir.php" class="btn btn-primary" style="display: block; width: 100%;">
+        + Novo Deck
+      </a>
+
+      <div class="panel" style="padding: 16px; display: flex; flex-direction: column; gap: 12px;">
+        <p style="font-size: 0.7rem; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin: 0;">Filtros</p>
+        <hr class="divider">
+
+        <div>
+          <label class="form-label" for="filtro-comandante">Comandante</label>
+          <input type="text" id="filtro-comandante" placeholder="Buscar...">
+        </div>
+        <div>
+          <label class="form-label" for="filtro-standings">Standings</label>
+          <input type="text" id="filtro-standings" placeholder="ex: 3/1/0">
+        </div>
+        <div>
+          <label class="form-label" for="filtro-posicao">Posição</label>
+          <input type="number" id="filtro-posicao" placeholder="ex: 1">
+        </div>
+        <div>
+          <label class="form-label" for="filtro-arquetipo">Arquétipo</label>
+          <select id="filtro-arquetipo">
+            <option value="">Todos</option>
             <option value="midrange">Midrange</option>
             <option value="aggro">Aggro</option>
             <option value="controle">Controle</option>
             <option value="combo">Combo</option>
-        </select>
+          </select>
+        </div>
 
-        <button id="limpar-filtros" class="bg-gray-700 hover:bg-gray-600 px-3 text-sm ml-2">Limpar filtros</button>
-    </div>  
+        <button id="limpar-filtros" class="btn btn-ghost" style="width: 100%;">Limpar filtros</button>
+      </div>
+    </aside>
 
-    <p id="contador" class="text-gray-400 text-sm mb-2"></p>
+    <main style="flex: 1; min-width: 0;">
 
-    <table class="border-collapse border border-gray-400 w-full">
-        <thead>
-            <tr>
-                <th class="border border-gray-400 px-2 py-1">Deck</th>
-                <th class="border border-gray-400 px-2 py-1">Lista</th>
-                <th class="border border-gray-400 px-2 py-1">Standings finais</th>
-                <th class="border border-gray-400 px-2 py-1">Posição</th>
-                <th class="border border-gray-400 px-2 py-1">Arquétipo</th>
-                <th class="border border-gray-400 px-2 py-1">Editar</th>
-                <th class="border border-gray-400 px-2 py-1">Excluir</th>
-            </tr>
-        </thead>
-        <tbody id="tabela-body">
-            {% for deck in decks %}
-            <tr data-comandante="{{ deck.comandante | lower }}" data-standings="{{ deck.standings | lower }}" data-posicao="{{ deck.posicao }}" data-arquetipo="{{ deck.arquetipo | lower }}">
-                <td class="border border-gray-400 px-2 py-1">{{ deck.comandante }}</td>
-                <td class="border border-gray-400 px-2 py-1"><a href="{{ deck.link }}" class="text-blue-400">Clique aqui</a></td>
-                <td class="border border-gray-400 px-2 py-1">{{ deck.standings }}</td>
-                <td class="border border-gray-400 px-2 py-1">{{ deck.posicao }}</td>
-                <td class="border border-gray-400 px-2 py-1">{{ deck.arquetipo }}</td>
-                <td class="border border-gray-400 px-2 py-1"><a href="decks_editar.php?id={{ deck.id }}" class="text-yellow-400">Editar</a></td>
-                <td class="border border-gray-400 px-2 py-1"><a href="decks_excluir.php?id={{ deck.id }}" class="text-red-400">Excluir</a></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+      <p id="contador" style="font-size: 0.75rem; color: var(--muted); margin-bottom: 10px;"></p>
 
-    <p id="sem-resultados" class="text-gray-400 mt-3 hidden">Nenhum deck encontrado com os filtros aplicados.</p>
+      <div class="panel" style="overflow: hidden;">
+        <div style="overflow-x: auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Comandante</th>
+                <th>Lista</th>
+                <th>Standings</th>
+                <th>Posição</th>
+                <th>Arquétipo</th>
+                <th style="text-align: center;">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-body">
+              {% for deck in decks %}
+              <tr
+                data-comandante="{{ deck.comandante | lower }}"
+                data-standings="{{ deck.standings | lower }}"
+                data-posicao="{{ deck.posicao }}"
+                data-arquetipo="{{ deck.arquetipo | lower }}"
+              >
+                <td style="font-weight: 500; color: var(--purple-light);">{{ deck.comandante }}</td>
+                <td>
+                  <a href="{{ deck.link }}" style="color: var(--purple-light); text-decoration: none; font-size: 0.85rem;" target="_blank">Ver lista ↗</a>
+                </td>
+                <td style="color: var(--muted);">{{ deck.standings }}</td>
+                <td>
+                  <span style="font-size: 0.8rem; color: var(--purple-light); background: rgba(124,58,237,0.1); border: 1px solid rgba(124,58,237,0.3); padding: 2px 8px; border-radius: 4px;">#{{ deck.posicao }}</span>
+                </td>
+                <td>
+                  <span class="badge badge-{{ deck.arquetipo | lower }}">{{ deck.arquetipo }}</span>
+                </td>
+                <td style="text-align: center; white-space: nowrap;">
+                  <a href="decks_editar.php?id={{ deck.id }}" class="btn btn-ghost" style="font-size: 0.75rem; padding: 4px 10px; margin-right: 4px; text-decoration: none;">Editar</a>
+                  <a href="decks_excluir.php?id={{ deck.id }}" class="btn btn-danger" style="font-size: 0.75rem; padding: 4px 10px; text-decoration: none;">Excluir</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <p id="sem-resultados" class="hidden" style="text-align: center; color: var(--muted); font-size: 0.85rem; margin-top: 40px;">
+        Nenhum deck encontrado com os filtros aplicados.
+      </p>
+
+    </main>
+  </div>
 </div>
 
 <script src="decks.js"></script>
